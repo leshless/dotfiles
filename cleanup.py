@@ -37,6 +37,7 @@ ALLOWED_DIR_PATHS = [
     ".vscode",
     ".vim",
     "snap",
+    "go",
     "Documents", # For cringy obsidian
     "Screenshots" # For cringy ubuntu screenshot tool
 ]
