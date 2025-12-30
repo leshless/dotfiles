@@ -1,6 +1,6 @@
 # Dotfiles
 
-Dotfile configs for various CLIs and services on my personal car.
+Dotfile configs for various CLIs and services on my desktop
 
 All configs are linked to original locations via [GNU Stow](https://www.gnu.org/software/stow).
 
