@@ -6,7 +6,7 @@ All configs are linked to original locations via [GNU Stow](https://www.gnu.org/
 
 To create symlinks run:
 ```bash
-stow ./dotfiles
+cd dotfiles && stow .
 ```
 
 This meant to be used with my [second repository](https://github.com/leshless/scripts) with scripts and shorthands.
