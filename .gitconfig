@@ -1,0 +1,13 @@
+[user]
+	email = leshless@leshless.com
+	name = leshless
+[core]
+	editor = vim
+[clean]
+	requireForce = false
+[pull]
+	ff = only
+[alias]
+	co = checkout
+	st = status
+	br = branch
