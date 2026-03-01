@@ -8,8 +8,8 @@ YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
 NC='\033[0m'
 
-APT_PACKAGES="git stow curl tree wget tmux unzip fastfetch"
-SNAP_PACKAGES="obsidian"
+APT_PACKAGES="git stow curl tree wget tmux unzip neofetch gnome-tweaks"
+SNAP_PACKAGES="obsidian v2ray-core"
 DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
 
 print_default() {
@@ -30,20 +30,26 @@ print_error() {
 
 print_default "🔥 Setting up desktop!"
 
-# Update APT
-print_default "Updating APT..."
+source /etc/os-release
 
-sudo apt update 1>/dev/null
+HOST_OS=$ID
 
-# Install APT stuff
-print_default "Installing APT packages..."
+if [[ $HOST_OS == ubuntu ]]; then	
+	# Update APT
+	print_default "Updating APT..."
 
-sudo apt install -y $APT_PACKAGES 1>/dev/null
+	sudo apt update 1>/dev/null
 
-# Install Snap stuff (apps) 
-print_default "Installing Snap packages..."
+	# Install APT stuff
+	print_default "Installing APT packages..."
 
-snap install $SNAP_PACKAGES --classic 1>/dev/null
+	sudo apt install -y $APT_PACKAGES 1>/dev/null
+
+	# Install Snap stuff (apps) 
+	print_default "Installing Snap packages..."
+
+	snap install $SNAP_PACKAGES --classic 1>/dev/null
+fi
 
 # Generate SSH key
 print_default "Generating SSH key..."
