@@ -9,7 +9,7 @@ BLUE='\033[1;34m'
 NC='\033[0m'
 
 APT_PACKAGES="git stow curl tree wget tmux unzip neofetch gnome-tweaks"
-SNAP_PACKAGES="obsidian v2ray-core"
+SNAP_PACKAGES="obsidian"
 DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
 
 print_default() {
