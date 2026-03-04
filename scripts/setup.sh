@@ -8,66 +8,79 @@ YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
 NC='\033[0m'
 
-APT_PACKAGES="git stow curl tree wget tmux unzip neofetch gnome-tweaks"
+APT_PACKAGES="git vim stow zsh tmux curl tree wget unzip neofetch gnome-tweaks"
 SNAP_PACKAGES="obsidian"
 DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
 
-print_default() {
+info() {
     echo -e "[$(date "+%d %b %Y %H:%M:%S")] ${CYAN}$1${NC}"
 }
 
-print_success() {
+success() {
     echo -e "[$(date "+%d %b %Y %H:%M:%S")] ${GREEN}$1${NC}"
 }
 
-print_warning() {
+warn() {
     echo -e "[$(date "+%d %b %Y %H:%M:%S")] ${YELLOW}$1${NC}"
 }
 
-print_error() {
+error() {
     echo -e "[$(date "+%d %b %Y %H:%M:%S")] ${RED}$1${NC}"
 }
 
-print_default "🔥 Setting up desktop!"
+info "💻 Setting up desktop!"
 
-source /etc/os-release
+DISTRO=$(cat /etc/os-release | awk -F "=" '/^NAME=/ {print $2}' | tr -d '"')
 
-HOST_OS=$ID
+apt_packages=(
+	git
+	tmux
+	vim
+	stow
+	zsh
+	curl
+	tree
+	unzip
+	neofetch
+)
+snap_packages=(
+	obsidian
+)
 
-if [[ $HOST_OS == ubuntu ]]; then	
+if [[ $DISTRO == Ubuntu ]]; then	
 	# Update APT
-	print_default "Updating APT..."
+	info "Updating APT..."
 
 	sudo apt update 1>/dev/null
 
 	# Install APT stuff
-	print_default "Installing APT packages..."
+	info "Installing APT packages..."
 
-	sudo apt install -y $APT_PACKAGES 1>/dev/null
+	sudo apt install -y ${apt_packages[@]} 1>/dev/null
 
 	# Install Snap stuff (apps) 
-	print_default "Installing Snap packages..."
+	info "Installing Snap packages..."
 
-	snap install $SNAP_PACKAGES --classic 1>/dev/null
+	sudo snap install ${snap_packages[@]} --classic 1>/dev/null
 fi
 
 # Generate SSH key
-print_default "Generating SSH key..."
+info "Generating SSH key..."
 
 ssh-keygen -t ed25519 -N "" -q -f ~/.ssh/id_ed25519
 
-print_default "Generated public SSH key:$NC $(cat ~/.ssh/id_ed25519.pub)"
+info "Generated public SSH key:$NC $(cat ~/.ssh/id_ed25519.pub)"
 
 # Clone dotfiles repo
-print_default "Clonning dotfiles repo..."
+info "Clonning dotfiles repo..."
 
 git clone $DOTFILES_REPO_URL 1>/dev/null
 
 # Stow dotfiles (return back to user)
-print_default "Loading configs..."
+info "Loading configs..."
 
 rm ~/.bashrc ~/.bash_logout ~/.profile
 cd dotfiles && stow . 1>/dev/null
 
-print_success "🔥 Setup done!"
+success "💻 Setup done!"
 
