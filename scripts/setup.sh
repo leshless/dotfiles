@@ -8,8 +8,6 @@ YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
 NC='\033[0m'
 
-APT_PACKAGES="git vim stow zsh tmux curl tree wget unzip neofetch gnome-tweaks"
-SNAP_PACKAGES="obsidian"
 DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
 
 info() {
@@ -45,6 +43,7 @@ apt_packages=(
 )
 snap_packages=(
 	obsidian
+	alacritty
 )
 
 if [[ $DISTRO == Ubuntu ]]; then	
@@ -61,7 +60,9 @@ if [[ $DISTRO == Ubuntu ]]; then
 	# Install Snap stuff (apps) 
 	info "Installing Snap packages..."
 
-	sudo snap install ${snap_packages[@]} --classic 1>/dev/null
+	for snap_package in "${snap_packages[@]}"; do 
+		sudo snap install $snap_package 1>/dev/null
+	done
 fi
 
 # Generate SSH key
@@ -83,4 +84,3 @@ rm ~/.bashrc ~/.bash_logout ~/.profile
 cd dotfiles && stow . 1>/dev/null
 
 success "💻 Setup done!"
-

@@ -24,8 +24,8 @@ alias free="free -h"
 
 # History config
 HISTFILE=~/.zsh_history
-HISTSIZE=100
-SAVEHIST=100
+HISTSIZE=5000
+SAVEHIST=$HISTSIZE
 
 # Gloabal aliases
 alias -g NE="2>/dev/null"
