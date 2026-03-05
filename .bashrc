@@ -1,6 +1,8 @@
 # Exit if not running in interactive mode
-[[ $- != *i* ]] && return
+[[ $- != *i* ]] && exit
 
 # Fall to zsh
 zsh
 
+# Exit
+exit

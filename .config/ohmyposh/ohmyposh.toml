@@ -1,0 +1,31 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+version = 2
+final_space = true
+
+[[blocks]]
+type = "prompt"
+alignment = "left"
+
+	[[blocks.segments]] 
+        type = "text"
+        style = "plain"
+        foreground_templates = [ "{{if eq .Code 0}}blue{{else}}red{{end}}" ]
+        template = "󰆋 "
+
+	[[blocks.segments]]
+        type = "text"
+        style = "plain"
+        foreground = "white"
+	template = ""
+
+[[blocks]]
+type = "prompt"
+alignment = "right"
+	
+	[[blocks.segments]]
+	type = "executiontime"
+	style = "plain"
+	foreground = "white"
+ 	template = " {{ .FormattedMs }} "
+
+        [blocks.segments.options] 

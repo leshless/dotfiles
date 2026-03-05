@@ -8,8 +8,6 @@ YELLOW='\033[1;33m'
 BLUE='\033[1;34m'
 NC='\033[0m'
 
-DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
-
 info() {
     echo -e "[$(date "+%d %b %Y %H:%M:%S")] ${CYAN}$1${NC}"
 }
@@ -63,6 +61,13 @@ if [[ $DISTRO == Ubuntu ]]; then
 	for snap_package in "${snap_packages[@]}"; do 
 		sudo snap install $snap_package 1>/dev/null
 	done
+
+	# Install fastfetch
+	info "Installing fastfetch..."
+	wget -q https://github.com/fastfetch-cli/fastfetch/releases/download/2.59.0/fastfetch-linux-amd64.deb 1>/dev/null
+	sudo apt install ./fastfetch-linux-amd64.deb 1>/dev/null
+	rm -rf ./fastfetch-linux-amd64.deb
+	
 fi
 
 # Generate SSH key
@@ -75,9 +80,20 @@ info "Generated public SSH key:$NC $(cat ~/.ssh/id_ed25519.pub)"
 # Clone dotfiles repo
 info "Clonning dotfiles repo..."
 
+DOTFILES_REPO_URL="https://github.com/leshless/dotfiles.git"
 git clone $DOTFILES_REPO_URL 1>/dev/null
 
-# Stow dotfiles (return back to user)
+# Download zinit (zsh plugin manager)
+info "Installing zinit..."
+
+ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+
+# Download ohmyposh (zsh prompt customization)
+curl -s https://ohmyposh.dev/install.sh | bash -s
+
+# Stow dotfiles
 info "Loading configs..."
 
 rm ~/.bashrc ~/.bash_logout ~/.profile

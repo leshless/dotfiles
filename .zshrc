@@ -1,3 +1,6 @@
+# If we are not inside the tmux run it
+[[ $TERM =~ ^tmux ]] || tmux
+
 # Options
 setopt NO_BEEP
 setopt AUTO_CD
@@ -36,6 +39,10 @@ alias -g L="| less"
 
 # Some variables
 export DISTRO=$(cat /etc/os-release | awk -F "=" '/^NAME=/ {print $2}' | tr -d '"')
+export ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
+
+# $PATH
+export PATH="$PATH:$HOME/.local/bin"
 
 # chpwd hook
 chpwd() {
@@ -50,9 +57,16 @@ chpwd() {
 # Create history file
 [ -f $HISTFILE ] || touch $HISTFILE
 
-# If we are not in tmux launch it
-if [[ $TERM =~ ^tmux ]]; then
-	neofetch
-else
-	tmux
-fi
+# Source zinit
+source $ZINIT_HOME/zinit.zsh
+
+# Enable zinit plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+
+# Apply ohmyposh config
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/ohmyposh.toml)"
+
+# Print distro logo
+fastfetch
