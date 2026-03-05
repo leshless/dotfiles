@@ -1,0 +1,78 @@
+[general]
+live_config_reload = true
+
+[window]
+opacity = 0.8
+blur = true
+startup_mode = "Maximized"
+title = "Terminal"
+dynamic_title = false
+
+[font]
+size = 12
+offset = { x = 0, y = 1 }
+
+[font.normal]
+family = "Ioskeley Mono"
+style = "Medium"
+
+[font.bold]
+family = "Ioskeley Mono"
+style = "Extrabold"
+
+[font.italic]
+family = "Ioskeley Mono"
+style = "Medium Italic"
+
+[font.bold_italic]
+family = "Ioskeley Mono"
+style = "Extrabold Italic"
+
+[colors.primary]
+background = "#1b182c"
+foreground = "#cbe3e7"
+
+[colors.normal]
+black = "#100e23"
+red = "#ff8080"
+green = "#95ffa4"
+yellow = "#ffe9aa"
+blue = "#91ddff"
+magenta = "#c991e1"
+cyan = "#aaffe4"
+white = "#cbe3e7"
+
+[colors.bright]
+black = "#565575"
+red = "#ff5458"
+green = "#62d196"
+yellow = "#ffb378"
+blue = "#65b2ff"
+magenta = "#906cff"
+cyan = "#63f2f1"
+white = "#a6b3cc"
+
+[bell]
+duration = 150
+animation = "EaseOut"
+color = "#a6b3cc"
+
+[cursor]
+unfocused_hollow = false
+thickness = 0.2
+blink_interval = 750
+blink_timeout = 5
+
+[cursor.style]
+shape = "Beam"
+blinking = "Always"
+
+[[hints.enabled]]
+regex = "(https?://)[^\\s'\"]+"
+command = { program = "xdg-open", args = [] }
+mouse = { enabled = true }
+post_processing = true
+persist = false
+
+[terminal]
+shell = "/bin/zsh"

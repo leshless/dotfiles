@@ -2,6 +2,19 @@
 setopt NO_BEEP
 setopt AUTO_CD
 setopt CORRECT
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_VERIFY 
+setopt SHARE_HISTORY
+setopt INC_APPEND_HISTORY
+
+# Key bindings
+bindkey '^[[1;5C' forward-word
+bindkey '^[[1;5D' backward-word
 
 # Core utils aliases
 alias ls="ls -a --color=always --group-directories-first"
@@ -10,7 +23,7 @@ alias df="df -h"
 alias free="free -h"
 
 # History config
-HISTFILE="~/.history"
+HISTFILE=~/.zsh_history
 HISTSIZE=100
 SAVEHIST=100
 
@@ -33,6 +46,9 @@ chpwd() {
 
 	ls
 }
+
+# Create history file
+[ -f $HISTFILE ] || touch $HISTFILE
 
 # If we are not in tmux launch it
 if [[ $TERM =~ ^tmux ]]; then
