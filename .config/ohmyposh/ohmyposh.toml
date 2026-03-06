@@ -10,7 +10,7 @@ alignment = "left"
         type = "text"
         style = "plain"
         foreground_templates = [ "{{if eq .Code 0}}blue{{else}}red{{end}}" ]
-        template = "󰆋 "
+        template = " "
 
 	[[blocks.segments]]
         type = "text"
@@ -18,14 +18,3 @@ alignment = "left"
         foreground = "white"
 	template = ""
 
-[[blocks]]
-type = "prompt"
-alignment = "right"
-	
-	[[blocks.segments]]
-	type = "executiontime"
-	style = "plain"
-	foreground = "white"
- 	template = " {{ .FormattedMs }} "
-
-        [blocks.segments.options] 

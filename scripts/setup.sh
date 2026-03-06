@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+# set -e
 
 RED='\033[1;31m'
 CYAN='\033[1;96m'
@@ -91,12 +91,40 @@ ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 
 # Download ohmyposh (zsh prompt customization)
-curl -s https://ohmyposh.dev/install.sh | bash -s
+curl -s https://ohmyposh.dev/install.sh 1>/dev/null | bash -s
 
 # Stow dotfiles
 info "Loading configs..."
 
-rm ~/.bashrc ~/.bash_logout ~/.profile
+rm ~/.bashrc ~/.bash_logout ~/.profile ~/.config/user-dirs.dirs
 cd dotfiles && stow . 1>/dev/null
+
+user_dirs=(
+	$HOME/Desktop
+	$HOME/Documents
+	$HOME/Music
+	$HOME/Pictures
+	$HOME/Templates
+	$HOME/Downloads
+	$HOME/Videos
+	$HOME/Public
+)
+# On ubuntu, remove title dirs
+if [[ $DISTRO == Ubuntu ]]; then
+	info "Removing redundant dirs..."
+
+	user_dirs=(
+        $HOME/Desktop
+        	HOME/Documents
+        	HOME/Music
+        	HOME/Pictures
+        	HOME/Templates
+        	HOME/Downloads
+        	HOME/Videos
+        	HOME/Public
+	)
+	
+	rm -rf ${user_dirs[@]} 
+fi 
 
 success "💻 Setup done!"
