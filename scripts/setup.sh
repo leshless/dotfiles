@@ -91,7 +91,7 @@ ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 [ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 
 # Download ohmyposh (zsh prompt customization)
-curl -s https://ohmyposh.dev/install.sh 1>/dev/null | bash -s
+curl -s https://ohmyposh.dev/install.sh | bash -s 1>/dev/null
 
 # Stow dotfiles
 info "Loading configs..."
