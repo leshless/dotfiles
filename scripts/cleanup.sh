@@ -45,19 +45,17 @@ links=()
 empty=1
 
 for entry in $HOME/*; do
-    entry=$(basename $entry)
-
     if [[ -f $entry ]]; then
         f=1
         for file in ${EXCLUDE_FILES[@]}; do
-            if [[ $entry == $file ]]; then
+            if [[ $(basename $entry) == $file ]]; then
                 f=0
                 break
             fi
         done
 
         if [[ $f == 1 ]]; then
-            files+=($entry)
+            files+=("$entry")
             empty=0
         fi
     fi
@@ -65,7 +63,7 @@ for entry in $HOME/*; do
     if [[ -d $entry ]]; then
         f=1
         for dir in ${EXCLUDE_DIRS[@]}; do
-            if [[ $entry == $dir ]]; then
+            if [[ $(basename $entry) == $dir ]]; then
                 f=0
                 break
             fi
@@ -76,7 +74,7 @@ for entry in $HOME/*; do
         fi
 
         if [[ $f == 1 ]]; then
-            dirs+=($entry)
+            dirs+=("$entry")
             empty=0
         fi
     fi
@@ -84,20 +82,20 @@ for entry in $HOME/*; do
     if [[ -L $entry ]]; then
         f=1
         for file in ${EXCLUDE_FILES[@]}; do
-            if [[ $entry == $file ]]; then
+            if [[ $(basename $entry) == $file ]]; then
                 f=0
                 break
             fi
         done
         for dir in ${EXCLUDE_DIRS[@]}; do
-            if [[ $entry == $dir ]]; then
+            if [[ $(basename $entry) == $dir ]]; then
                 f=0
                 break
             fi
         done
 
         if [[ $f == 1 ]]; then
-            links+=($entry)
+            links+=("$entry")
             empty=0
         fi
     fi
@@ -115,9 +113,14 @@ echo -en "${BOLD}Continue? [y/n]${NC}"
 read -p " " yn
 case $yn in
     [Yy]* ) 
-        rm -rf ${dirs[@]}
-        rm -rf ${files[@]}
-        rm -rf ${links[@]};;
-    [Nn]* ) exit 0;;
-    * ) exit 0;;
-esac
+        for i in ${!dirs[@]}; do
+            rm -rf "${dirs[i]}"
+        done
+        for i in ${!files[@]}; do
+            rm -rf "${files[i]}"
+        done
+        for i in ${!links[@]}; do
+            rm -rf "${links[i]}"
+        done;;
+    * ) exit;;
+esac    
