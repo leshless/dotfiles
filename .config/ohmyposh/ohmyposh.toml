@@ -10,11 +10,6 @@ alignment = "left"
         type = "text"
         style = "plain"
         foreground_templates = [ "{{if eq .Code 0}}blue{{else}}red{{end}}" ]
-        template = " "
+        template = " "
 
-	[[blocks.segments]]
-        type = "text"
-        style = "plain"
-        foreground = "white"
-	template = ""
 

@@ -43,6 +43,11 @@ export ZINIT_HOME="$HOME/.local/share/zinit/zinit.git"
 
 # $PATH
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:/usr/local/go/bin"
+
+# Script shortcuts
+alias fixremote="$HOME/dotfiles/scripts/fix_remote.sh"
+alias cleanup="$HOME/dotfiles/scripts/cleanup.sh"
 
 # chpwd hook
 chpwd() {
@@ -70,3 +75,5 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/ohmyposh.toml)"
 
 # Print distro logo
 fastfetch
+
+. "$HOME/.local/share/../bin/env"

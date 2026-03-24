@@ -1,5 +1,5 @@
 #!/bin/bash
-# set -e
+set -e
 
 RED='\033[1;31m'
 CYAN='\033[1;96m'
