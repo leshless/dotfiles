@@ -11,6 +11,10 @@ MAGENTA='\033[35m'
 NC='\033[0m'
 
 EXCLUDE_FILES=(
+    .zshrc
+    .zcompdump
+    .zsh_history
+    .tmux.conf
     .bashrc 
     .bash_profile
     .bash_login
@@ -44,6 +48,7 @@ dirs=()
 links=()
 empty=1
 
+shopt -s dotglob
 for entry in $HOME/*; do
     if [[ -f $entry ]]; then
         f=1
